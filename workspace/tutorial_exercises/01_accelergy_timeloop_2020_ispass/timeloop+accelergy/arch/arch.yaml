@@ -1,5 +1,4 @@
 variables:
-  version: 0.4
   PSUM_DATAWIDTH: {{psum_datawidth}}
   INPUT_WEIGHT_DATAWIDTH: {{input_weight_datawidth}}
   global_cycle_seconds: 1e-09
@@ -18,9 +17,10 @@ architecture:
     name: DRAM
     class: DRAM
     attributes:
-      type: "LPDDR4"
+      technology: "LPDDR4"
       width: 64
       datawidth: INPUT_WEIGHT_DATAWIDTH
+      depth: 536870912
 
   - !Container # Eyeriss accelerator
     name: eyeriss
@@ -40,7 +40,7 @@ architecture:
 
   - !Container # Each column of PEs produces a different psum row
     name: PE_column
-    spatial: {meshX: 14}
+    spatial: {meshX: 28}
     constraints:
       spatial:
         permutation: [N, C, P, R, S, Q, M]
@@ -94,7 +94,7 @@ architecture:
       attributes:
         depth: 16
         width: max(PSUM_DATAWIDTH, 16)
-        update_fifo_depth: 2
+        update_fifo_entries: 2
         datawidth: PSUM_DATAWIDTH
         read_bandwidth: 2
         write_bandwidth: 2

@@ -5,7 +5,6 @@ THIS_SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 import pytimeloop.timeloopfe.v4 as tl
 
-
 def run_exercise_intmac(out_dir: str = "output"):
     start_dir = THIS_SCRIPT_DIR
     spec = tl.Specification.from_yaml_files(
@@ -59,7 +58,7 @@ if __name__ == "__main__":
 
     exercise_list = [
         "intmac",
-        "fpmac",
+        # "fpmac",
     ]
 
     if args.clear_outputs:
